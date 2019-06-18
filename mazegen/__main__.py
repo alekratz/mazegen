@@ -6,6 +6,13 @@ from .solver import Solver
 from .display import *
 
 
+DISPLAY_HELP = {
+    "stdout": "will print each step to STDOUT with line breaks.",
+    "curses": "will use the curses library to print directly to the terminal.",
+    "blt": "will attempt to open a bearlibterminal session and use that.",
+}
+
+
 def main():
     parser = ArgumentParser(description="Generate a maze.")
     parser.add_argument("width", metavar="W", type=int, help="the width of the maze.")
@@ -20,23 +27,29 @@ def main():
         default=0.1,
         help="the time step between each draw.",
     )
+    display_help = (
+        "the display strategy to use. "
+        + " ".join(["`{}` {}".format(k, v) for k, v in DISPLAY_HELP.items()])
+        + " (default: %(default)s)"
+    )
     parser.add_argument(
         "--display",
         metavar="DISPLAY",
         type=str,
-        choices=["stdout", "blt"],
-        default="stdout",
-        help="the display strategy to use. `stdout` will print each step to STDOUT with line "
-             "breaks, while `blt` will attempt to open a bearlibterminal session.",
+        choices=DISPLAYS_AVAILABLE,  # set in displays/__init__.py
+        default=DISPLAYS_AVAILABLE[-1],  # this uses the most desirable display
+        help=display_help,
     )
     args = parser.parse_args()
     if args.seed:
         random.seed(args.seed)
 
-    if args.display == 'stdout':
+    if args.display == "stdout":
         display = StdoutDisplay(sleep=args.step)
-    elif args.display == 'blt':
+    elif args.display == "blt":
         display = BearLibTermDisplay(sleep=args.step)
+    elif args.display == "curses":
+        display = CursesDisplay(sleep=args.step)
     else:
         assert False, "No display"
 
@@ -50,7 +63,7 @@ def main():
             break
         # Give a quick visual representation that the maze has finished and another one is about to
         # be generated
-        #display.delay(0.5)
+        # display.delay(0.5)
 
 
 if __name__ == "__main__":
