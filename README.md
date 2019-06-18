@@ -35,5 +35,27 @@ Basic usage from the root project directory:
 
 where the width and height are the size of the maze in characters/cells.
 
-There are additionally other options for running from the terminal. To use BearLibTerm as your
-display, pass `--display blt` as an option on the command line.
+For a listing of command line options, run `python3 -m mazegen --help`.
+
+## Examples
+
+Solve a bigger maze:
+
+`python3 -m mazegen 30 30`
+
+Run using Curses as the display method:
+
+`python3 -m mazegen 10 10 --display curses`
+
+Run with a faster step speed:
+
+`python3 -m mazegen 10 10 --step 0.05`
+
+
+# Wishlist and TODO
+
+* Support for BearLibTerminal settings (font, window title, etc)
+* Smoother animation... somehow?
+* Center the Curses window in the terminal
+    * Also handle terminal resize if possible
+* More output methods?
