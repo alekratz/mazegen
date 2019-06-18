@@ -1,8 +1,8 @@
 from bearlibterminal import terminal as blt
 from mazegen.grid import Grid
 from mazegen.solver import Solver
-from mazegen.display.base import Display
 from mazegen.display.exception import DisplayCloseError
+from mazegen.display.base import Display
 
 
 __all__ = ('BearLibTermDisplay',)

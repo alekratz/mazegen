@@ -5,9 +5,6 @@ from mazegen.display.base import Display
 from mazegen.display.exception import DisplayCloseError
 
 class CursesDisplay(Display):
-    ##GUY = "\u001b[36m▪\u001b[0m"
-    GUY = "▪"
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.screen = curses.initscr()
@@ -34,10 +31,12 @@ class CursesDisplay(Display):
         x, y = solver.pos
         tx = x * 4 + 2
         ty = y * 2 + 1
-        self.screen.addstr(ty, tx, self.GUY, curses.color_pair(1))
+        self.screen.addstr(ty, tx, self.guy, curses.color_pair(1))
         self.last_pos = (tx, ty)
         self.screen.refresh()
 
     def __del__(self):
+        # "but what happens if--" nobody cares. 99% of the time the destructor will run as expected
+        # and that's good enough for me.
         curses.resetty()
         curses.endwin()

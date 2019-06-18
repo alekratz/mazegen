@@ -30,14 +30,12 @@ __all__ = ALL
 
 
 class StdoutDisplay(Display):
-    GUY = "\u001b[36m▪\u001b[0m"
-
     def draw(self, solver: Solver):
         canvas = solver.grid.draw()
         x, y = solver.pos
         tx = x * 4 + 2
         ty = y * 2 + 1
-        canvas[ty][tx] = self.GUY
+        canvas[ty][tx] = "\u001b[36m" + self.guy + "\u001b[0m"
         # TODO more involved terminal commands that allow the maze to be drawn in the terminal
         # without newlines
         for row in canvas:
