@@ -198,10 +198,18 @@ class Grid:
     def height(self) -> int:
         return self._height
 
+    @property
+    def canvas_width(self) -> int:
+        return self.width * 4 + 1
+
+    @property
+    def canvas_height(self) -> int:
+        return self.height * 2 + 1
+
     def draw(self):
         global WALL_CHARS
-        cwidth = self.width * 4 + 1
-        cheight = self.height * 2 + 1
+        cwidth = self.canvas_width
+        cheight = self.canvas_height
         canvas = [[" " for _ in range(cwidth)] for _ in range(cheight)]
 
         # Upper-left framing
