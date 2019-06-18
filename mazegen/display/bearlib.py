@@ -12,6 +12,7 @@ class BearLibTermDisplay(Display):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         assert blt.open() != 0
+        self.last_pos = None
 
     def loop(self, solver: Solver):
         w = solver.grid.canvas_width
@@ -20,6 +21,11 @@ class BearLibTermDisplay(Display):
         blt.set(settings)
         blt.clear()
         blt.refresh()
+
+        canvas = solver.grid.draw()
+        for y, row in enumerate(canvas):
+            for x, c in enumerate(row):
+                blt.put(x, y, ord(c))
         super().loop(solver)
 
     def update(self, solver: Solver):
@@ -35,19 +41,17 @@ class BearLibTermDisplay(Display):
         blt.delay(duration)
 
     def draw(self, solver: Solver):
-        canvas = solver.grid.draw()
+        if self.last_pos:
+            x, y = self.last_pos
+            blt.put(x, y, " ")
+
         x, y = solver.pos
         tx = x * 4 + 2
         ty = y * 2 + 1
-        canvas[ty][tx] = "▪"
-
-        for y, row in enumerate(canvas):
-            for x, c in enumerate(row):
-                if (x, y) == (tx, ty):
-                    blt.color("cyan")
-                blt.put(x, y, ord(c))
-                if (x, y) == (tx, ty):
-                    blt.color("white")
+        blt.color("cyan")
+        blt.put(tx, ty, "▪")
+        blt.color("white")
+        self.last_pos = (tx, ty)
         blt.refresh()
 
     def __del__(self):

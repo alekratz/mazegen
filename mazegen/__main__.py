@@ -61,9 +61,6 @@ def main():
             display.loop(solver)
         except DisplayCloseError:
             break
-        # Give a quick visual representation that the maze has finished and another one is about to
-        # be generated
-        # display.delay(0.5)
 
 
 if __name__ == "__main__":
