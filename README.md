@@ -58,4 +58,5 @@ Run with a faster step speed:
 * Smoother animation... somehow?
 * Center the Curses window in the terminal
     * Also handle terminal resize if possible
-* More output methods?
+* More display methods?
+* Track the path the solver dude follows in the display
