@@ -1,6 +1,8 @@
 # Mazegen
 
-Dumb maze generator with the intent of being a little terminal toy.
+[![asciicast](https://asciinema.org/a/wQEqxN04mFwe53rbOKi0rVBjt.svg)](https://asciinema.org/a/wQEqxN04mFwe53rbOKi0rVBjt?autoplay=1&loop=1)
+
+Dumb maze generator and solver, with the intent of being a little terminal toy.
 
 # Requirements
 
@@ -38,6 +40,10 @@ where the width and height are the size of the maze in characters/cells.
 For a listing of command line options, run `python3 -m mazegen --help`.
 
 ## Examples
+
+Solve exactly one maze and exit:
+
+`python3 -m mazegen 10 10 --cycles 1`
 
 Solve a bigger maze:
 
