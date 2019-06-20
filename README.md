@@ -1,6 +1,9 @@
 # Mazegen
 
-[![asciicast](https://asciinema.org/a/wQEqxN04mFwe53rbOKi0rVBjt.svg)](https://asciinema.org/a/wQEqxN04mFwe53rbOKi0rVBjt?autoplay=1&loop=1)
+<p align="center">
+<a href="https://asciinema.org/a/wQEqxN04mFwe53rbOKi0rVBjt" target="_blank"><img src="https://asciinema.org/a/wQEqxN04mFwe53rbOKi0rVBjt.svg" /></a>
+</p>
+
 
 Dumb maze generator and solver, with the intent of being a little terminal toy.
 
