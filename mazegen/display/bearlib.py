@@ -9,9 +9,12 @@ __all__ = ('BearLibTermDisplay',)
 
 
 class BearLibTermDisplay(Display):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, settings=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         assert blt.open() != 0
+        settings = settings or []
+        for setting in settings:
+            blt.set(setting)
         self.last_pos = None
 
     def loop(self, solver: Solver):

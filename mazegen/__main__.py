@@ -40,6 +40,27 @@ def main():
         default=DISPLAYS_AVAILABLE[-1],  # this uses the most desirable display
         help=display_help,
     )
+
+    parser.add_argument(
+        "--cycles",
+        metavar="CYCLES",
+        type=int,
+        default=-1,
+        help="the number of mazes to solve. If less than 0, it will generate and solve infinite "
+             "mazes. (default: %(default)s)"
+    )
+
+    if "blt" in DISPLAYS_AVAILABLE:
+        # add BLT-specific settings, but only when it's enabled
+        parser.add_argument(
+            "--blt-setting",
+            metavar="SETTING",
+            type=str,
+            nargs="*",
+            default=[],
+            help="a list of bearlibterminal settings."
+        )
+
     args = parser.parse_args()
     if args.seed:
         random.seed(args.seed)
@@ -47,13 +68,16 @@ def main():
     if args.display == "stdout":
         display = StdoutDisplay(sleep=args.step)
     elif args.display == "blt":
-        display = BearLibTermDisplay(sleep=args.step)
+        display = BearLibTermDisplay(settings=args.blt_setting, sleep=args.step)
     elif args.display == "curses":
         display = CursesDisplay(sleep=args.step)
     else:
         assert False, "No display"
 
-    while True:
+    count = 0
+    cycles = args.cycles
+    while count != cycles:
+        count += 1
         grid = Grid(args.width, args.height)
         DepthFirst(grid).generate()
         solver = Solver(grid)
